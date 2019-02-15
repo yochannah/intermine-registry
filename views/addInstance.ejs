@@ -20,7 +20,7 @@
 										</div>
 										<% } %>
 											<div class="main-login main-center">
-												<h5>Please, enter the instance information. Name, namespace and URL are required and unique. If the instance is not in production, please check the Dev Mine checkbox.</h5>
+												<h5>Please enter the instance information. Name, namespace and URL are required and unique. If the instance is not in production, please check the Dev Mine checkbox.</h5>
 
 												<form class="" method="post" action="">
 
@@ -257,19 +257,26 @@
 									organisms += instance.organisms[j] + ", ";
 								}
 							}
+
+							// check for the namespace existance before we try to print it
+							// to prevent namespace-less mines throwing an error.
+
+							var namespace;
+							if (instance.namespace) {
+								namespace = instance.namespace.trim();
+							}
+
+
 							$("#form-action-type").attr('value', 'put');
 							$("#form-instance-id").attr('value', instance.id)
 
 							$("#action-title").text("Update " + instance.name);
 							$("#newName").val(instance.name);
-							$("#newNamespace").val(instance.namespace);
-							if (instance.namespace.trim() != "") {
-								$("#newNamespace").prop("readonly", true)
-							}
+							$("#newNamespace").val(namespace);
 							$("#newUrl").val(instance.url);
 							$("#newDesc").val(instance.description);
 							$("#maintainerOrgName").val(instance.maintainerOrgName);
-							$("#maintainerUrl").val(instance.maintainerUrl); 
+							$("#maintainerUrl").val(instance.maintainerUrl);
 							$("#maintainerEmail").val(instance.maintainerEmail);
 							$("#maintainerGithubUrl").val(instance.maintainerGithubUrl);
 							$("#newTwitter").val(instance.twitter);
